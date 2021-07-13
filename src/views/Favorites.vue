@@ -1,17 +1,24 @@
 <template>
   <div class="favorite wrap">
-      <button
-          @click="clearFavorites"
-          class="btn favorite__btn">Clear Favorites</button>
-      <div class="favorite__content">
-          <CharacterCard
-              v-for="person in favorites"
-              :key="person.id"
-              :name="person.name"
-              :id="person.id"
-          />
+      <div
+          v-if="favorites"
+          class="favorite__wrap">
+          <button
+              @click="clearFavorites"
+              class="btn favorite__btn">Clear Favorites</button>
+          <div class="favorite__content">
+              <CharacterCard
+                  v-for="person in favorites"
+                  :key="person.id"
+                  :name="person.name"
+                  :id="person.id"
+              />
+          </div>
       </div>
-
+      <h1
+          v-else
+          class="favorite__title"
+      >Add your favorite character</h1>
   </div>
 </template>
 
@@ -67,6 +74,11 @@ export default {
             color: #000;
 
         }
+    }
+    &__title {
+        display: flex;
+        justify-content: center;
+        margin-top: 25px;
     }
 }
 </style>
