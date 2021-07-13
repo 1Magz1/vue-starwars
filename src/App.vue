@@ -1,9 +1,18 @@
 <template>
-    <div>
-        <span>hello</span>
-    </div>
+<Header/>
+<router-view/>
 </template>
 
-<style>
+<style lang="scss">
 
 </style>
+
+<script>
+  import Header from '@/components/Header'
+export default {
+  components: {
+    Header
+  }
+}
+</script>
+
