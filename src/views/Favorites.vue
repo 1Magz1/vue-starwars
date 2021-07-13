@@ -1,7 +1,7 @@
 <template>
   <div class="favorite wrap">
       <div
-          v-if="favorites"
+          v-if="favorites.length"
           class="favorite__wrap">
           <button
               @click="clearFavorites"

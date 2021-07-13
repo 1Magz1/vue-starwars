@@ -9,11 +9,16 @@
         <button
             @click="Favorited()"
             class="btn character-card__btn"
-            :class="{
-                'btn-primary': !isFavorite,
-                'btn-danger': isFavorite
-            }"
-        >Favorite</button>
+        >
+            <img
+                :class="{active: !isFavorite}"
+                class="character-card__icon"
+                src="@/assets/heart-black.svg" alt="Favorite person">
+            <img
+                :class="{active: isFavorite}"
+                class="character-card__icon"
+                src="@/assets/heart-red.svg" alt="Favorite person">
+            </button>
     </div>
 </template>
 
@@ -64,11 +69,28 @@ export default {
         font-size: 22px;
         margin-bottom: 5px;
     }
+    &__btn {
+        display: flex;
+        margin: 0 auto;
+        &:hover {
+            box-shadow: 0 0 0 0.2rem #000;
+        }
+        &:focus {
+            box-shadow: none;
+        }
+    }
     &__img {
         margin-bottom: 5px;
         img {
             width: 100%;
             height: auto;
+        }
+    }
+    &__icon {
+        width: 25px;
+        display: none;
+        &.active {
+            display: block;
         }
     }
 }
