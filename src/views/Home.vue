@@ -8,7 +8,32 @@
                 :id="person.url.split('/')[5]"
             />
         </div>
-
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li
+                    :class="{'disabled': currentPage === 1}"
+                    class="page-item">
+                    <a
+                        @click="currentPage--, getCharacters(currentPage)"
+                        class="page-link" href="#">Previous</a>
+                </li>
+                <li
+                    v-for="page in MaxPage"
+                    :key="page"
+                    :class="{active: currentPage === page}"
+                    @click="currentPage = page, getCharacters(page)"
+                    class="page-item">
+                    <a class="page-link" href="#">{{page}}</a>
+                </li>
+                <li
+                    :class="{'disabled': currentPage === MaxPage}"
+                    class="page-item">
+                    <a
+                        @click="currentPage++, getCharacters(currentPage)"
+                        class="page-link" href="#">Next</a>
+                </li>
+            </ul>
+        </nav>
     </div>
 </template>
 
@@ -19,19 +44,34 @@ import axios from 'axios'
 export default {
     name: "Home",
     data: () => ({
-        characters: []
+        characters: [],
+        currentPage: 1,
+        count: 0,
+        maxPage: 0
     }),
     components: {
         CharacterCard
     },
+    computed: {
+        MaxPage() {
+            return Math.ceil(this.count/10)
+        }
+    },
     mounted() {
-        this.getCharacters()
+        this.getCharacters(this.currentPage)
+        this.getCount()
     },
     methods: {
-        getCharacters() {
+        getCharacters(page) {
+            this.characters = []
+            axios
+                .get(`https://swapi.dev/api/people/?page=${page}`)
+                .then(response => response.data.results.forEach(el => this.characters.push(el)));
+        },
+        getCount() {
             axios
                 .get('https://swapi.dev/api/people')
-                .then(response => response.data.results.forEach(el => this.characters.push(el)));
+                .then(response => (this.count = response.data.count));
         }
     }
 };

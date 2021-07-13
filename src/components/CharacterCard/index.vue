@@ -43,7 +43,6 @@ export default {
                     name: this.name,
                     id: this.id
                 })
-                console.log('add')
             } else {
                 let DeletePerson = data.findIndex((item) => item.name === this.name);
                 data.splice(DeletePerson, 1);
