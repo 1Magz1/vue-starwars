@@ -1,13 +1,15 @@
 <template>
     <div class="home">
         <h1>This is Home page</h1>
+        <div class="home__content">
+            <CharacterCard
+                v-for="person in characters"
+                :key="person.name"
+                :name="person.name"
+                :id="person.url.split('/')[5]"
+            />
+        </div>
 
-        <CharacterCard
-            v-for="person in characters"
-            :key="person.name"
-            :name="person.name"
-            :id="person.url.split('/')[5]"
-        />
     </div>
 </template>
 
@@ -25,7 +27,6 @@ export default {
     },
     mounted() {
         this.getCharacters()
-        console.log(this.characters)
     },
     methods: {
         getCharacters() {
@@ -36,3 +37,18 @@ export default {
     }
 };
 </script>
+
+<style lang="scss" scoped>
+.home {
+    &__content {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        .character-card {
+            flex-basis: 16.67%;
+            margin-right: 20px;
+            margin-bottom: 20px;
+        }
+    }
+}
+</style>
