@@ -41,7 +41,7 @@
         <div
             v-else
             class="loader">
-            <img src="@/assets/star-wars.jpg" alt="">
+            <img src="@/assets/img/star-wars.jpg" alt="">
         </div>
     </div>
 </template>

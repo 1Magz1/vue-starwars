@@ -13,11 +13,11 @@
             <img
                 :class="{active: !isFavorite}"
                 class="character-card__icon"
-                src="@/assets/heart-black.svg" alt="Favorite person">
+                src="@/assets/svg/heart-black.svg" alt="Favorite person">
             <img
                 :class="{active: isFavorite}"
                 class="character-card__icon"
-                src="@/assets/heart-red.svg" alt="Favorite person">
+                src="@/assets/svg/heart-red.svg" alt="Favorite person">
             </button>
     </div>
 </template>
