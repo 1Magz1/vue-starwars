@@ -48,6 +48,7 @@ export default {
                 data.splice(DeletePerson, 1);
             }
             localStorage.setItem("favorited", JSON.stringify(data));
+            console.log(data)
         }
 },
     mounted() {

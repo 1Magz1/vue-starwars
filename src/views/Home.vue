@@ -1,5 +1,19 @@
 <template>
     <div class="home wrap">
+        <span>{{charaterName}}</span>
+        <form class="home__form">
+            <div class="form-group">
+                <label for="search"></label>
+                <input
+                    @input="Search"
+                    v-model="charaterName"
+                    type="text"
+                    class="form-control home__form-input"
+                    id="search" aria-describedby="search"
+                    placeholder="Enter character name"
+                    autocomplete="off">
+            </div>
+        </form>
         <div
             v-if="characters.length"
             class="home__wrap">
@@ -29,6 +43,7 @@
                     </li>
                 </ul>
             </nav>
+
             <div class="home__content">
                 <CharacterCard
                     v-for="person in characters"
@@ -56,7 +71,8 @@ export default {
         characters: [],
         currentPage: 1,
         count: 0,
-        maxPage: 0
+        maxPage: 0,
+        charaterName: ''
     }),
     components: {
         CharacterCard
@@ -81,6 +97,12 @@ export default {
             axios
                 .get('https://swapi.dev/api/people')
                 .then(response => (this.count = response.data.count));
+        },
+        Search() {
+            this.characters = []
+            axios
+                .get(`https://swapi.dev/api/people/?search=${this.charaterName}`)
+                .then(response => response.data.results.forEach(el => this.characters.push(el)));
         }
     }
 };
@@ -101,7 +123,6 @@ export default {
     &__nav {
         display: flex;
         justify-content: center;
-        margin-top: 25px;
     }
     &__pagination-link {
         border-color: #000;
@@ -126,6 +147,23 @@ export default {
             }
         }
 
+    }
+    &__form {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .form-group {
+            flex-basis: 100%;
+        }
+    }
+    &__form-input {
+        border-radius: 0;
+        border-color: #000;
+        &:focus {
+            border-color: #000;
+            outline: 0;
+            box-shadow: 0 0 0 0.2rem rgba(255,238,88, 0.25);
+        }
     }
 }
 </style>

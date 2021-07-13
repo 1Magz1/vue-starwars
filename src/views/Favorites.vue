@@ -9,7 +9,7 @@
           <div class="favorite__content">
               <CharacterCard
                   v-for="person in favorites"
-                  :key="person.id"
+                  :key="person.name"
                   :name="person.name"
                   :id="person.id"
               />

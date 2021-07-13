@@ -55,25 +55,18 @@
         justify-content: space-between;
     }
     &__list-item {
-        padding: 5px 23px;
-        background: #000;
-        border: 2px solid #FFEE58;
-        transition: background-color .3s;
-        &:hover {
-            background: #FFEE58;
-            border-color: #000;
-
-            a {
-                color: #000;
-            }
-
-        }
         a  {
+            padding: 5px 23px;
+            background: #000;
+            border: 2px solid #FFEE58;
+            transition: background-color .3s, color .3s;
             color: #fff;
             text-transform: uppercase;
-            transition: color .3s;
             &:hover {
+                background: #FFEE58;
+                border-color: #000;
                 text-decoration: none;
+                color: #000;
             }
         }
     }
