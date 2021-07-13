@@ -55,9 +55,13 @@ export default {
         .character-card {
             flex-basis: 32%;
             margin-right: 20px;
+            margin-bottom: 20px;
             &:nth-child(3n) {
                 margin-right: 0;
             }
+        }
+        .character-card__message {
+            font-size: 35px;
         }
      }
     &__btn {

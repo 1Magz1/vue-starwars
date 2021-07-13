@@ -26,7 +26,7 @@
 export default {
     data () {
         return {
-            isFavorite: false
+            isFavorite: false,
         }
     },
     props: ['name', 'id'],
@@ -48,7 +48,6 @@ export default {
                 data.splice(DeletePerson, 1);
             }
             localStorage.setItem("favorited", JSON.stringify(data));
-            console.log(data)
         }
 },
     mounted() {
