@@ -57,7 +57,15 @@ export default {
 
 <style lang="scss" scoped>
 .character-card {
+    border: 2px solid #000;
+    border-radius: 15px;
+    padding: 10px;
+    &__name {
+        font-size: 22px;
+        margin-bottom: 5px;
+    }
     &__img {
+        margin-bottom: 5px;
         img {
             width: 100%;
             height: auto;

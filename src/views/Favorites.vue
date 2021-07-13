@@ -1,9 +1,8 @@
 <template>
-  <div class="favorite">
-        <h1>This is favorite page</h1>
+  <div class="favorite wrap">
       <button
           @click="clearFavorites"
-          class="btn">Clear Favorites</button>
+          class="btn favorite__btn">Clear Favorites</button>
       <div class="favorite__content">
           <CharacterCard
               v-for="person in favorites"
@@ -43,6 +42,7 @@ export default {
     &__content {
         display: flex;
         flex-wrap: wrap;
+        margin-top: 25px;
 
         justify-content: space-between;
         .character-card {
@@ -53,5 +53,20 @@ export default {
             }
         }
      }
+    &__btn {
+        display: flex;
+        margin: 25px auto 0 auto;
+        padding: 5px 23px;
+        background: #000;
+        border: 2px solid #000;
+        transition: background-color .3s;
+        color: #fff;
+        &:hover {
+            background: #FFEE58;
+            border-color: #000;
+            color: #000;
+
+        }
+    }
 }
 </style>

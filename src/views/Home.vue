@@ -1,6 +1,5 @@
 <template>
-    <div class="home">
-        <h1>This is Home page</h1>
+    <div class="home wrap">
         <div class="home__content">
             <CharacterCard
                 v-for="person in characters"
@@ -44,8 +43,9 @@ export default {
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
+        margin-top: 25px;
         .character-card {
-            flex-basis: 16.67%;
+            flex-basis: 17.67%;
             margin-right: 20px;
             margin-bottom: 20px;
         }

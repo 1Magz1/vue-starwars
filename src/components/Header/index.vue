@@ -1,7 +1,9 @@
 <template>
     <header class="header wrap">
         <div class="header__inner">
-            <span class="header__logo">Vue StarWars</span>
+            <span class="header__logo">
+                <RouterLink to="/">Vue StarWars</RouterLink>
+            </span>
         </div>
         <div class="header__inner">
             <ul class="list header__list">
@@ -34,6 +36,13 @@
     &__logo {
         font-size: 41px;
         font-weight: 500;
+        a {
+            color: #000;
+            &:hover {
+                color: #000;
+                text-decoration: none;
+            }
+        }
     }
     &__inner {
         flex-basis: 50%;
