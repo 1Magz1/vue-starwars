@@ -4,7 +4,7 @@
             <div class="form-group">
                 <label for="search"></label>
                 <input
-                    @input="Search"
+                    @input="search"
                     v-model="charaterName"
                     type="text"
                     class="form-control home__form-input"
@@ -16,7 +16,9 @@
         <div
             v-if="characters.length"
             class="home__wrap">
-            <nav class="home__nav" aria-label="page navigation">
+            <nav
+                v-if="!charaterName.length"
+                class="home__nav" aria-label="page navigation">
                 <ul class="pagination home__pagination">
                     <li
                         :class="{'disabled': currentPage === 1}"
@@ -42,13 +44,13 @@
                     </li>
                 </ul>
             </nav>
-
             <div class="home__content">
                 <CharacterCard
                     v-for="person in characters"
                     :key="person.name"
                     :name="person.name"
                     :id="person.url.split('/')[5]"
+                    :local="update"
                 />
             </div>
         </div>
@@ -97,11 +99,14 @@ export default {
                 .get('https://swapi.dev/api/people')
                 .then(response => (this.count = response.data.count));
         },
-        Search() {
+        search() {
             this.characters = []
             axios
                 .get(`https://swapi.dev/api/people/?search=${this.charaterName}`)
                 .then(response => response.data.results.forEach(el => this.characters.push(el)));
+        },
+        update() {
+            JSON.parse(localStorage.getItem("favorited"))
         }
     }
 };
