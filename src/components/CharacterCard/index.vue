@@ -19,6 +19,12 @@
                 class="character-card__icon"
                 src="@/assets/svg/heart-red.svg" alt="Favorite person">
             </button>
+        <div
+            :class="{active: isFavorite}"
+            class="character-card__message">
+            <span class="character-card__message-text">{{name}}</span>
+            <span class="character-card__message-text">{{message}}</span>
+        </div>
     </div>
 </template>
 
@@ -27,6 +33,7 @@ export default {
     data () {
         return {
             isFavorite: false,
+            message: 'add to favorite character'
         }
     },
     props: ['name', 'id'],
@@ -43,9 +50,12 @@ export default {
                     name: this.name,
                     id: this.id
                 })
+                this.message = 'add to favorite character'
             } else {
                 let DeletePerson = data.findIndex((item) => item.name === this.name);
                 data.splice(DeletePerson, 1);
+                this.message = 'remove to favorite character'
+
             }
             localStorage.setItem("favorited", JSON.stringify(data));
         }
@@ -64,6 +74,8 @@ export default {
     border: 2px solid #000;
     border-radius: 15px;
     padding: 10px;
+    position: relative;
+    overflow: hidden;
     &__name {
         font-size: 22px;
         margin-bottom: 5px;
@@ -91,6 +103,30 @@ export default {
         &.active {
             display: block;
         }
+    }
+    &__message {
+        transform: translateY(-100%);
+        position: absolute;
+        top: 0;
+        left: 0;
+        background: #000;
+        width: 100%;
+        height: 100%;
+        border-radius: 12px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 10px;
+        border: 2px solid #FFEE58;
+        transition-timing-function: cubic-bezier(.29, 1.01, 1, -0.68);
+        transition: transform 3s;
+        &.active {
+            transform: translateY(100%);
+        }
+    }
+    &__message-text {
+        color: #FFEE58;
+        font-size: 25px;
     }
 }
 </style>
