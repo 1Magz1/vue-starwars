@@ -1,5 +1,18 @@
 <template>
     <div class="home wrap">
+        <form class="home__form">
+            <div class="form-group">
+                <label for="search"></label>
+                <input
+                    @input="Search"
+                    v-model="charaterName"
+                    type="text"
+                    class="form-control home__form-input"
+                    id="search" aria-describedby="search"
+                    placeholder="Enter character name"
+                    autocomplete="off">
+            </div>
+        </form>
         <div
             v-if="characters.length"
             class="home__wrap">
@@ -58,6 +71,7 @@ export default {
         currentPage: 1,
         count: 0,
         maxPage: 0,
+        charaterName: ''
     }),
     components: {
         CharacterCard
@@ -83,6 +97,12 @@ export default {
                 .get('https://swapi.dev/api/people')
                 .then(response => (this.count = response.data.count));
         },
+        Search() {
+            this.characters = []
+            axios
+                .get(`https://swapi.dev/api/people/?search=${this.charaterName}`)
+                .then(response => response.data.results.forEach(el => this.characters.push(el)));
+        }
     }
 };
 </script>
@@ -102,7 +122,6 @@ export default {
     &__nav {
         display: flex;
         justify-content: center;
-        margin-top: 25px;
     }
     &__pagination-link {
         border-color: #000;
