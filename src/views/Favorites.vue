@@ -12,6 +12,7 @@
                   :key="person.name"
                   :name="person.name"
                   :id="person.id"
+                  :local="update"
               />
           </div>
       </div>
@@ -26,10 +27,18 @@
 import CharacterCard from '@/components/CharacterCard'
 
 export default {
-    name: "Home",
+    name: "Favorites",
     data() {
         return {
-            favorites: JSON.parse(localStorage.getItem("favorited")),
+            favorites: [],
+        }
+    },
+    mounted() {
+        const data = JSON.parse(localStorage.getItem("favorited"))
+        if(data) {
+            data.forEach(el => this.favorites.push(el))
+        } else {
+            this.favorites =[]
         }
     },
     components: {
@@ -40,6 +49,9 @@ export default {
             window.localStorage.clear();
             this.favorites = []
         },
+        update() {
+            this.favorites = JSON.parse(localStorage.getItem("favorited"));
+        }
     },
 };
 </script>
@@ -51,12 +63,11 @@ export default {
         flex-wrap: wrap;
         margin-top: 25px;
 
-        justify-content: space-between;
         .character-card {
-            flex-basis: 32%;
+            flex-basis: calc(25% - 15px);
             margin-right: 20px;
             margin-bottom: 20px;
-            &:nth-child(3n) {
+            &:nth-child(4n) {
                 margin-right: 0;
             }
         }

@@ -7,7 +7,7 @@
         </div>
         <h3 class="character-card__name">{{name}}</h3>
         <button
-            @click="Favorited()"
+            @click="favorited(), local()"
             class="btn character-card__btn"
         >
             <img
@@ -36,9 +36,9 @@ export default {
             message: 'add to favorite character'
         }
     },
-    props: ['name', 'id'],
+    props: ['name', 'id', 'local'],
     methods: {
-        Favorited() {
+        favorited() {
             let data = JSON.parse(window.localStorage.getItem("favorited"));
             if (!data) {
                 data = [];
