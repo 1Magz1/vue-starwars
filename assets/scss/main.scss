@@ -1,0 +1,21 @@
+@import './_reset.css';
+
+.wrap {
+  padding: 0 150px;
+}
+.list {
+  padding-left: 0;
+  margin: 0;
+  list-style-type: none;
+}
+.loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  img {
+    width: 100%;
+    max-width: 250px;
+  }
+}
+

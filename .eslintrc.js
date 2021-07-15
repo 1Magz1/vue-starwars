@@ -1,17 +1,33 @@
 module.exports = {
   root: true,
   env: {
-    node: true
+    browser: true,
+    node: true,
   },
-  'extends': [
-    'plugin:vue/vue3-essential',
-    'eslint:recommended'
-  ],
   parserOptions: {
-    parser: 'babel-eslint'
+    parser: 'babel-eslint',
   },
+  extends: [
+    'plugin:vue/recommended',
+    'airbnb-base',
+  ],
+  plugins: [
+    'vue',
+  ],
   rules: {
-    'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
-    'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off'
-  }
-}
+    'max-len': 'off',
+    camelcase: 'off',
+    'no-underscore-dangle': 'off',
+    'import/extensions': 'off',
+    'import/no-unresolved': 'off',
+    'import/no-extraneous-dependencies': 'off',
+    'no-param-reassign': 'off',
+    'linebreak-style': 'off',
+    'no-console': 'off',
+    'no-async-promise-executor': 'off',
+    'no-return-await': 'off',
+    'no-unused-vars': 'off',
+    'import/no-dynamic-require': 'off',
+    'no-restricted-globals': 'off',
+  },
+};
