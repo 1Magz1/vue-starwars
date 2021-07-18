@@ -94,7 +94,7 @@ export default {
       characterName: 'home/getCharacterName',
     }),
     MaxPage() {
-      return Math.ceil(this.count / 10);
+      return Math.ceil(this.count / this.characters.length);
     },
   },
   async mounted() {
