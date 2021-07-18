@@ -19,6 +19,7 @@
       class="home__wrap"
     >
       <nav
+        v-if="!characterName.length"
         class="home__nav"
         aria-label="page navigation"
       >
