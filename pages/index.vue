@@ -4,12 +4,12 @@
       <div class="form-group">
         <input
           id="search"
-          v-model="charaterName"
           type="text"
           class="form-control home__form-input"
           aria-describedby="search"
           placeholder="Enter character name"
           autocomplete="off"
+          :value="characterName"
           @input="search"
         >
       </div>
@@ -19,7 +19,6 @@
       class="home__wrap"
     >
       <nav
-        v-if="!charaterName.length"
         class="home__nav"
         aria-label="page navigation"
       >
@@ -31,7 +30,7 @@
             <a
               class="page-link home__pagination-link"
               href="#"
-              @click="currentPage--, getCharacters(currentPage)"
+              @click="decrement(), loadPage()"
             >Previous</a>
           </li>
           <li
@@ -39,7 +38,7 @@
             :key="page"
             :class="{active: currentPage === page}"
             class="page-item home__pagination-item"
-            @click="currentPage = page, getCharacters(page)"
+            @click="setCurrentPage(page), loadPage()"
           >
             <a
               class="page-link home__pagination-link"
@@ -53,7 +52,7 @@
             <a
               class="page-link home__pagination-link"
               href="#"
-              @click="currentPage++, getCharacters(currentPage)"
+              @click="increment(), loadPage()"
             >Next</a>
           </li>
         </ul>
@@ -64,7 +63,6 @@
           :id="+person.url.split('/')[5]"
           :key="person.name"
           :name="person.name"
-          :local="update"
         />
       </div>
     </div>
@@ -80,49 +78,49 @@
   </div>
 </template>
 <script>
+import { mapGetters } from 'vuex';
 import CharacterCard from '~/components/CharacterCard';
 
 export default {
   components: {
     CharacterCard,
   },
-  data: () => ({
-    characters: [],
-    currentPage: 1,
-    count: 0,
-    maxPage: 0,
-    charaterName: '',
-  }),
+
   computed: {
+    ...mapGetters({
+      characters: 'home/getCharacters',
+      count: 'home/getCount',
+      currentPage: 'home/getCurrentPage',
+      characterName: 'home/getCharacterName',
+    }),
     MaxPage() {
       return Math.ceil(this.count / 10);
     },
   },
-  mounted() {
-    this.getCharacters(this.currentPage);
-    this.getCount();
+  async mounted() {
+    await this.$store.dispatch('home/fetchCharacters', this.currentPage);
+    await this.$store.dispatch('home/fetchCount');
   },
   methods: {
-    async getCharacters(page) {
-      this.characters = [];
-      this.characters = await this.$axios
-        .get(`https://swapi.dev/api/people/?page=${page}`)
-        .then((response) => (response.data.results));
+    async loadPage() {
+      await this.$store.dispatch('home/fetchCharacters', this.currentPage);
     },
-    async getCount() {
-      this.count = await this.$axios
-        .$get('https://swapi.dev/api/people')
-        .then((response) => (response.count));
+    increment() {
+      this.$store.commit('home/incrementCurrentPage');
     },
-    async search() {
-      this.characters = [];
-      this.characters = await this.$axios
-        .get(`https://swapi.dev/api/people/?search=${this.charaterName}`)
-        .then((response) => (response.data.results));
+    decrement() {
+      this.$store.commit('home/decrementCurrentPage');
     },
-    update() {
-      JSON.parse(localStorage.getItem('favorited'));
+    setCurrentPage(page) {
+      this.$store.commit('home/setCurrentPage', page);
     },
+    async search(e) {
+      this.$store.commit('home/setCharacterName', e.target.value);
+      await this.$store.dispatch('home/fetchCharacter', this.characterName);
+    },
+    // update() {
+    //   JSON.parse(localStorage.getItem('favorited'));
+    // },
   },
 };
 </script>
