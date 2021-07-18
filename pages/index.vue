@@ -64,6 +64,7 @@
           :id="+person.url.split('/')[5]"
           :key="person.name"
           :name="person.name"
+          :local="update"
         />
       </div>
     </div>
@@ -119,9 +120,9 @@ export default {
       this.$store.commit('home/setCharacterName', e.target.value);
       await this.$store.dispatch('home/fetchCharacter', this.characterName);
     },
-    // update() {
-    //   JSON.parse(localStorage.getItem('favorited'));
-    // },
+    update() {
+      JSON.parse(localStorage.getItem('favorited'));
+    },
   },
 };
 </script>
